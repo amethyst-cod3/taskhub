@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taskhub/features/sign_in/sign_in_page.dart';
-import 'package:taskhub/features/sign_up/sign_up_page.dart';
-import 'package:taskhub/features/welcome/welcome_page.dart';
+import 'package:taskhub/features/home/home_page.dart';
+import 'package:taskhub/features/onboard/sign_in_page.dart';
+import 'package:taskhub/features/onboard/sign_up_page.dart';
+import 'package:taskhub/features/onboard/welcome_page.dart';
 
 /// App navigation routes system
 
@@ -18,13 +19,19 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/signinPage',
       builder: (context, state) {
-        return const SignInPage();
+        return SignInPage();
       },
     ),
     GoRoute(
       path: '/signupPage',
       builder: (context, state) {
-        return const SignUpPage();
+        return SignUpPage();
+      },
+    ),
+    GoRoute(
+      path: '/homePage',
+      builder: (context, state) {
+        return const HomePage();
       },
     ),
   ],
