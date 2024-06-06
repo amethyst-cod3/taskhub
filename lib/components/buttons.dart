@@ -26,35 +26,37 @@ class Button extends StatelessWidget {
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
-  }) => Button(
-    text: text,
-    textStyle: const TextStyle(
-      color: CustomColor.lightwhite,
-    ),
-    color: color ?? CustomColor.darkblue,
-    borderColor: color ?? Colors.transparent,
-    borderRadius: 12,
-    onTap: onTap,
-    pressed: pressed,
-  );
+  }) =>
+      Button(
+        text: text,
+        textStyle: const TextStyle(
+          color: CustomColor.lightwhite,
+        ),
+        color: color ?? CustomColor.darkblue,
+        borderColor: color ?? Colors.transparent,
+        borderRadius: 12,
+        onTap: onTap,
+        pressed: pressed,
+      );
 
   factory Button.secondary({
     required String text,
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
-  }) => Button(
-    text: text,
-    textStyle: const TextStyle(
-      color: CustomColor.darkblue,
-    ),
-    color: color ?? CustomColor.lightwhite,
-    //borderColor: color ?? CustomColor.darkblue,
-    borderColor: Colors.transparent,
-    borderRadius: 12,
-    onTap: onTap,
-    pressed: pressed,
-  );
+  }) =>
+      Button(
+        text: text,
+        textStyle: const TextStyle(
+          color: CustomColor.darkblue,
+        ),
+        color: color ?? CustomColor.lightwhite,
+        //borderColor: color ?? CustomColor.darkblue,
+        borderColor: Colors.transparent,
+        borderRadius: 12,
+        onTap: onTap,
+        pressed: pressed,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +72,8 @@ class Button extends StatelessWidget {
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(borderRadius ?? 0)
-              ),
+              borderRadius:
+                  BorderRadius.all(Radius.circular(borderRadius ?? 0)),
               // side: BorderSide(
               //   color: borderColor.withOpacity(pressed ? 0.5 : 1),
               //   width: 0.5,
@@ -85,10 +86,10 @@ class Button extends StatelessWidget {
           alignment: Alignment.center,
         ),
         onPressed: pressed
-          ? null
-          : () {
-            onTap();
-          },
+            ? null
+            : () {
+                onTap();
+              },
         child: Text(
           text,
           style: textStyle,

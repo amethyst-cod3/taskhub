@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomColor {
+  static const Color customwhite = Color(0xFFFBFFF4);
+  static const Color transparentCustomwhite = Color(0x80FBFFF4);
+
   static const Color darkblue = Color(0xFF413B6B);
   static const Color lightwhite = Color(0xFFE7EBFD);
 
