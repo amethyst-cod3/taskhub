@@ -29,6 +29,13 @@
             {
               "client_id": "661381501523-a76q66he1339cc4r2qm7bc1p9vbc6q4u.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "661381501523-1qm8npdhouim555c7hgp1cmsd0a58lqg.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taskhub"
+              }
             }
           ]
         }

@@ -87,4 +87,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'taskhub-rst.appspot.com',
     measurementId: 'G-BMX2CWXV3Q',
   );
+
 }
