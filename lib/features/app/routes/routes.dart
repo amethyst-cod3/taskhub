@@ -4,12 +4,19 @@ import 'package:taskhub/features/home/home_page.dart';
 import 'package:taskhub/features/onboard/sign_in_page.dart';
 import 'package:taskhub/features/onboard/sign_up_page.dart';
 import 'package:taskhub/features/onboard/welcome_page.dart';
+import 'package:taskhub/features/wrapper.dart';
 
 /// App navigation routes system
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/welcomePage',
+  initialLocation: '/wrapper',
   routes: <RouteBase>[
+    GoRoute(
+      path: '/wrapper',
+      builder: (context, state) {
+        return const Wrapper();
+      },
+    ),
     GoRoute(
       path: '/welcomePage',
       builder: (context, state) {
