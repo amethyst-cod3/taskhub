@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:taskhub/components/buttons.dart';
-import 'package:taskhub/firebase/services/firebase_auth_controller.dart';
+import 'package:taskhub/components/textfields.dart';
+import 'package:taskhub/services/auth_service.dart';
 import 'package:taskhub/styles/colors.dart';
 
-class SignInPage extends StatelessWidget {
-  SignInPage({super.key});
+class SignInPage extends StatefulWidget {
+  const SignInPage({super.key});
 
+  @override
+  State<StatefulWidget> createState() => _SignInPageState();
+}
+
+class _SignInPageState extends State<SignInPage> {
+  final AuthService _authService = AuthService();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final authController = Provider.of<FirebaseAuthController>(context);
     return Scaffold(
       backgroundColor: CustomColor.lightwhite,
       body: SafeArea(
@@ -22,91 +26,44 @@ class SignInPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
             children: [
-              Container(
-                margin: const EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: CustomColor.customwhite,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextField(
-                  controller: emailController,
-                  style: const TextStyle(
-                    color: CustomColor.darkblue,
-                    fontSize: 16,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                    contentPadding: EdgeInsets.all(8),
-                    prefixIcon: Icon(Icons.email_outlined),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: CustomColor.darkblue,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                ),
+              CustomTextField(
+                textController: emailController,
+                hintText: 'Email',
+                icon: const Icon(Icons.email_outlined),
               ),
-              Container(
-                margin: const EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width * 0.8,
-                height: 48,
-                decoration: BoxDecoration(
-                  color: CustomColor.customwhite,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: TextField(
-                  controller: passwordController,
-                  style: const TextStyle(
-                    color: CustomColor.darkblue,
-                    fontSize: 16,
-                  ),
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                    contentPadding: EdgeInsets.all(8),
-                    prefixIcon: Icon(Icons.password_outlined),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: Colors.transparent,
-                        width: 2,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                      borderSide: BorderSide(
-                        color: CustomColor.darkblue,
-                        width: 2,
-                      ),
-                    ),
-                  ),
-                  obscureText: true,
-                ),
+              CustomTextField(
+                textController: passwordController,
+                hintText: 'Password',
+                icon: const Icon(Icons.password_outlined),
+                obscureText: true,
               ),
-              Button.primary(
+              CustomButton.primary(
                 text: 'Log in',
                 onTap: () async {
-                  await authController.signIn(emailController.text, passwordController.text);
-                  if (authController.user != null) {
-                    // Navega a la siguiente pantalla después de iniciar sesión exitosamente
-                    // Por ejemplo: Navigator.pushReplacementNamed(context, '/homePage');
-                    context.go('/homePage');
+                  if (emailController.text.isNotEmpty) {
+                    if (passwordController.text.isNotEmpty) {
+                      await _authService.signIn(context, emailController.text,
+                          passwordController.text);
+                    } else {
+                      _showErrorSnackBar(context, 'Password field is empty.');
+                    }
+                  } else {
+                    _showErrorSnackBar(context, 'Email field is empty.');
                   }
                 },
               ),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: CustomColor.purple,
       ),
     );
   }

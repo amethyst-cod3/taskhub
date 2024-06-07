@@ -26,19 +26,19 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/signinPage',
       builder: (context, state) {
-        return SignInPage();
+        return const SignInPage();
       },
     ),
     GoRoute(
       path: '/signupPage',
       builder: (context, state) {
-        return SignUpPage();
+        return const SignUpPage();
       },
     ),
     GoRoute(
       path: '/homePage',
       builder: (context, state) {
-        return const HomePage();
+        return HomePage();
       },
     ),
   ],

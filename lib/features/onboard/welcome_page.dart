@@ -28,7 +28,7 @@ class WelcomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Button.primary(
+                    CustomButton.primary(
                       text: 'Sign in',
                       onTap: () {
                         context.push('/signinPage');
@@ -36,10 +36,9 @@ class WelcomePage extends StatelessWidget {
                     ),
                     const Text(
                       'or',
-                      style: TextStyle(
-                        color: CustomColor.darkblue),
-                      ),
-                    Button.secondary(
+                      style: TextStyle(color: CustomColor.darkblue),
+                    ),
+                    CustomButton.secondary(
                       text: 'Sign up',
                       onTap: () {
                         context.push('/signupPage');

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:taskhub/services/auth_service.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
+
+  final AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: SafeArea(
         child: Center(
-          child: Text('HomePage'),
+          child: ElevatedButton(
+            onPressed: () async {
+              await _authService.signOut(context);
+            },
+            child: const Text('HomePage'),
+          ),
         ),
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskhub/styles/colors.dart';
 
-class Button extends StatelessWidget {
-  const Button({
+class CustomButton extends StatelessWidget {
+  const CustomButton({
     super.key,
     required this.text,
     required this.textStyle,
@@ -21,13 +21,13 @@ class Button extends StatelessWidget {
   final VoidCallback onTap;
   final bool pressed;
 
-  factory Button.primary({
+  factory CustomButton.primary({
     required String text,
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
   }) =>
-      Button(
+      CustomButton(
         text: text,
         textStyle: const TextStyle(
           color: CustomColor.lightwhite,
@@ -39,13 +39,13 @@ class Button extends StatelessWidget {
         pressed: pressed,
       );
 
-  factory Button.secondary({
+  factory CustomButton.secondary({
     required String text,
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
   }) =>
-      Button(
+      CustomButton(
         text: text,
         textStyle: const TextStyle(
           color: CustomColor.darkblue,

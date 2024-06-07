@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskhub/styles/colors.dart';
 
-class FormTextField extends StatelessWidget {
-  const FormTextField({
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
     super.key,
     required this.textController,
     this.hintText,
