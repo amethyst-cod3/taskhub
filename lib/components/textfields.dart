@@ -22,7 +22,7 @@ class CustomTextField extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.8,
       height: 48,
       decoration: BoxDecoration(
-        color: CustomColor.customwhite,
+        color: CustomColor.transparentCustomwhite,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
@@ -38,7 +38,7 @@ class CustomTextField extends StatelessWidget {
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
-              color: Colors.transparent,
+              color: CustomColor.customwhite,
               width: 2,
             ),
           ),
