@@ -7,16 +7,11 @@ class DatabaseService {
   final String? uid;
 
   /// Collection reference
-  final CollectionReference taskCollection =
-      FirebaseFirestore.instance.collection('tasks');
-
-  Future updateUserData(
-      String title, String description, bool isCompleted) async {
-    return await taskCollection.doc(uid).set({
-      'title': title,
-      'description': description,
-      'isCompleted': false,
-    });
+  CollectionReference get taskCollection {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('tasks');
   }
 
   /// Task list from snapshot
@@ -33,5 +28,15 @@ class DatabaseService {
   /// Task getter
   Stream<List<Task>> get tasks {
     return taskCollection.snapshots().map(_taskListFromSnapshot);
+  }
+
+  /// TASK FUNCTIONS
+  // Add task
+  Future addTask(String title, String description, bool isCompleted) async {
+    return await taskCollection.add({
+      'title': title,
+      'description': description,
+      'isCompleted': isCompleted,
+    });
   }
 }

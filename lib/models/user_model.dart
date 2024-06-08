@@ -1,7 +1,5 @@
 class UserModel {
-  UserModel({
-    this.uid
-  });
+  UserModel({this.uid});
 
   final String? uid;
 }

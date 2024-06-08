@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskhub/models/user_model.dart';
-import 'package:taskhub/services/database_service.dart';
 import 'package:taskhub/styles/colors.dart';
 
 class AuthService {
@@ -56,12 +55,6 @@ class AuthService {
           await _auth.createUserWithEmailAndPassword(
               email: email.trim(), password: password.trim());
       User? user = userCredential.user;
-
-      // Create a new document in Firestore for the user with its uid
-      await DatabaseService(uid: user!.uid)
-          .updateUserData('title', 'description', false);
-      // - - - - -
-
       if (context.mounted) _navigateToHomePage(context);
       return _userFromFirebase(user);
     } on FirebaseAuthException catch (e) {
