@@ -101,3 +101,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+  fonts:
+    - family: Kanit
+      fonts:
+        - asset: fonts/Kanit-ExtraLight.ttf
+          weight: 200
+        - asset: fonts/Kanit-Regular.ttf
+          weight: 400
+        - asset: fonts/Kanit-Bold.ttf
+          weight: 700

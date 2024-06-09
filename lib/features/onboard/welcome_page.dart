@@ -2,51 +2,58 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskhub/components/buttons.dart';
 import 'package:taskhub/styles/colors.dart';
+import 'package:taskhub/styles/text_styles.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final w = MediaQuery.of(context).size.width;
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: CustomColor.lightwhite,
+      backgroundColor: CustomColor.darkblue,
       body: SafeArea(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
+        child: SizedBox(
+          width: w,
+          height: h,
+          child: Stack(
             children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.34,
-                decoration: const BoxDecoration(
-                  color: CustomColor.transparentCustomwhite,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(24),
-                    topRight: Radius.circular(24),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    child: Text(
+                      'Welcome to TaskHub',
+                      style: CustomTextStyle.welcomePageTitle,
+                    ),
                   ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomButton.primary(
-                      text: 'Sign in',
+                  Container(
+                    padding: const EdgeInsets.all(24),
+                    child: const Text(
+                      'Your task management app.\n\nShare them with your friends and co-operate together.',
+                      style: CustomTextStyle.welcomePageSubtitle,
+                    ),
+                  ),
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    alignment: Alignment.bottomCenter,
+                    padding: const EdgeInsets.all(24),
+                    child: CustomButton.secondary(
+                      text: 'Get started',
                       onTap: () {
                         context.push('/signinPage');
                       },
                     ),
-                    const Text(
-                      'or',
-                      style: TextStyle(color: CustomColor.darkblue),
-                    ),
-                    CustomButton.secondary(
-                      text: 'Sign up',
-                      onTap: () {
-                        context.push('/signupPage');
-                      },
-                    ),
-                  ],
-                ),
-              )
+                  ),
+                ],
+              ),
             ],
           ),
         ),

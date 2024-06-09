@@ -10,4 +10,15 @@ class CustomColor {
   static const Color blue = Color(0xFF605DFF);
   static const Color lightblue = Color(0xFF5DA8FF);
   static const Color purple = Color(0xFFAD63F6);
+
+  static Shader mainGradient = const LinearGradient(
+      // begin: Alignment.topLeft,
+      // end: Alignment.bottomRight,
+      colors: [
+        blue,
+        lightblue,
+        purple,
+      ]).createShader(
+    const Rect.fromLTRB(0, 0, 250, 0),
+  );
 }

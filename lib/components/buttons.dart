@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskhub/styles/colors.dart';
+import 'package:taskhub/styles/text_styles.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({
@@ -29,9 +30,7 @@ class CustomButton extends StatelessWidget {
   }) =>
       CustomButton(
         text: text,
-        textStyle: const TextStyle(
-          color: CustomColor.lightwhite,
-        ),
+        textStyle: CustomTextStyle.primaryButtonRegular,
         color: color ?? CustomColor.darkblue,
         borderColor: color ?? Colors.transparent,
         borderRadius: 12,
@@ -47,10 +46,8 @@ class CustomButton extends StatelessWidget {
   }) =>
       CustomButton(
         text: text,
-        textStyle: const TextStyle(
-          color: CustomColor.darkblue,
-        ),
-        color: color ?? CustomColor.lightwhite,
+        textStyle: CustomTextStyle.secondaryButtonRegular,
+        color: color ?? CustomColor.customwhite,
         //borderColor: color ?? CustomColor.darkblue,
         borderColor: Colors.transparent,
         borderRadius: 12,
@@ -66,8 +63,8 @@ class CustomButton extends StatelessWidget {
         style: ButtonStyle(
           fixedSize: WidgetStateProperty.all(
             Size(
-              MediaQuery.of(context).size.width * 0.67,
-              36,
+              MediaQuery.of(context).size.width * 0.8,
+              48,
             ),
           ),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(

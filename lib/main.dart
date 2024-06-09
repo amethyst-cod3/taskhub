@@ -13,11 +13,6 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  // String? userId = await AuthLocalStorage.getCurrentUser();
-  // final authController = FirebaseAuthController();
-  // if (userId != null) {
-  //   await authController.signInWithStoredUserId(userId);
-  // }
   runApp(const MyApp());
 }
 
@@ -30,16 +25,9 @@ class MyApp extends StatelessWidget {
       initialData: UserModel(),
       value: AuthService().user,
       child: MaterialApp.router(
-        debugShowCheckedModeBanner: true,
+        debugShowCheckedModeBanner: false,
         routerConfig: appRouter,
       ),
     );
-    // return ChangeNotifierProvider(
-    //   create: (context) => FirebaseAuthController(),
-    //   child: MaterialApp.router(
-    //     debugShowCheckedModeBanner: true,
-    //     routerConfig: appRouter,
-    //   ),
-    // );
   }
 }
