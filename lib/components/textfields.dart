@@ -13,7 +13,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines,
     this.expands,
     required this.isPrimary,
-    required this.isTaskField,
+    this.isTaskField,
   });
 
   final TextEditingController textController;
@@ -24,7 +24,7 @@ class CustomTextField extends StatelessWidget {
   final int? maxLines;
   final bool? expands;
   final bool isPrimary;
-  final bool isTaskField;
+  final bool? isTaskField;
 
   factory CustomTextField.primary({
     required TextEditingController textController,
@@ -43,7 +43,7 @@ class CustomTextField extends StatelessWidget {
         maxLines: 1,
         expands: false,
         isPrimary: true,
-        isTaskField: false,
+        isTaskField: isTaskField,
       );
 
   factory CustomTextField.secondary({
@@ -61,19 +61,19 @@ class CustomTextField extends StatelessWidget {
         maxLines: maxLines,
         expands: true,
         isPrimary: false,
-        isTaskField: false,
+        isTaskField: isTaskField,
       );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      width: isTaskField
-          ? MediaQuery.of(context).size.width * 0.8
-          : MediaQuery.of(context).size.width,
+      width: isTaskField!
+          ? MediaQuery.of(context).size.width
+          : MediaQuery.of(context).size.width * 0.8,
       height: isPrimary ? 48 : 96,
       decoration: BoxDecoration(
-        color: CustomColor.lightwhite,
+        color: isTaskField! ? CustomColor.customwhite : CustomColor.lightwhite,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(

@@ -46,7 +46,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     final h = MediaQuery.of(context).size.height;
     final user = Provider.of<UserModel?>(context);
     return Scaffold(
-      backgroundColor: CustomColor.lightwhite,
+      backgroundColor: CustomColor.customwhite,
       body: SafeArea(
         child: SizedBox(
           width: w,
@@ -75,7 +75,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: const BoxDecoration(
-                    color: CustomColor.customwhite,
+                    color: CustomColor.lightwhite,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),

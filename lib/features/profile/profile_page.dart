@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:taskhub/components/buttons.dart';
 import 'package:taskhub/services/auth_service.dart';
 import 'package:taskhub/styles/colors.dart';
@@ -14,7 +15,7 @@ class ProfilePage extends StatelessWidget {
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: CustomColor.lightwhite,
+      backgroundColor: CustomColor.darkblue,
       body: SafeArea(
         child: SizedBox(
           width: w,
@@ -24,15 +25,17 @@ class ProfilePage extends StatelessWidget {
               SizedBox(
                 width: w,
                 height: h * 0.10,
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 18,
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios_new),
+                      color: CustomColor.lightwhite,
+                      onPressed: () => context.pop(),
                     ),
-                    Text(
+                    const Text(
                       'Profile',
-                      style: CustomTextStyle.menuSecondaryTitle,
+                      style: CustomTextStyle.menuTitle,
                     ),
                   ],
                 ),
@@ -41,7 +44,7 @@ class ProfilePage extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: const BoxDecoration(
-                    color: CustomColor.customwhite,
+                    color: CustomColor.lightwhite,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(24),
                       topRight: Radius.circular(24),

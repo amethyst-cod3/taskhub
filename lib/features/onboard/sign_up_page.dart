@@ -67,18 +67,21 @@ class _SignUpPageState extends State<SignUpPage> {
                             textController: emailController,
                             hintText: 'Email',
                             icon: const Icon(Icons.email_outlined),
+                            isTaskField: false,
                           ),
                           CustomTextField.primary(
                             textController: passwordController,
                             hintText: 'Password',
                             icon: const Icon(Icons.password_outlined),
                             obscureText: true,
+                            isTaskField: false,
                           ),
                           CustomTextField.primary(
                             textController: confirmPasswordController,
                             hintText: 'Confirm password',
                             icon: const Icon(Icons.password_outlined),
                             obscureText: true,
+                            isTaskField: false,
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.075,
