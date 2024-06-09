@@ -6,6 +6,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.textController,
+    this.maxLength,
     this.hintText,
     this.icon,
     this.obscureText,
@@ -17,6 +18,7 @@ class CustomTextField extends StatelessWidget {
   });
 
   final TextEditingController textController;
+  final int? maxLength;
   final String? hintText;
   final Icon? icon;
   final bool? obscureText;
@@ -29,6 +31,7 @@ class CustomTextField extends StatelessWidget {
   factory CustomTextField.primary({
     required TextEditingController textController,
     String? hintText,
+    int? maxLength,
     Icon? icon,
     bool? obscureText,
     int? maxLines,
@@ -37,6 +40,7 @@ class CustomTextField extends StatelessWidget {
   }) =>
       CustomTextField(
         textController: textController,
+        maxLength: maxLength,
         hintText: hintText,
         icon: icon,
         obscureText: obscureText,
@@ -71,19 +75,19 @@ class CustomTextField extends StatelessWidget {
       width: isTaskField!
           ? MediaQuery.of(context).size.width
           : MediaQuery.of(context).size.width * 0.8,
-      height: isPrimary ? 48 : 96,
-      decoration: BoxDecoration(
-        color: isTaskField! ? CustomColor.customwhite : CustomColor.lightwhite,
-        borderRadius: BorderRadius.circular(12),
-      ),
+      height: isPrimary ? 48 : 144,
       child: TextField(
         controller: textController,
+        maxLength: maxLength,
         style: CustomTextStyle.primaryTextRegular,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding: const EdgeInsets.all(8),
           prefixIcon: icon,
           prefixIconColor: CustomColor.darkblue,
+          filled: true,
+          fillColor:
+              isTaskField! ? CustomColor.customwhite : CustomColor.lightwhite,
           enabledBorder: const OutlineInputBorder(
             borderRadius: BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
