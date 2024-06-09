@@ -6,6 +6,18 @@ class DatabaseService {
 
   final String? uid;
 
+  /// USERS
+  Future<void> saveUserInfo(String uid, String email) async {
+    await FirebaseFirestore.instance.collection('users').doc(uid).set({
+      'uid': uid,
+      'username': 'New user',
+      'email': email,
+    });
+  }
+
+  /// --------------------
+
+  /// TASKS
   /// Collection reference
   CollectionReference get taskCollection {
     return FirebaseFirestore.instance
@@ -66,4 +78,6 @@ class DatabaseService {
   Future<void> deleteTask(String taskId) async {
     return await taskCollection.doc(taskId).delete();
   }
+
+  /// --------------------
 }
