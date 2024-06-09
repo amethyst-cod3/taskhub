@@ -20,6 +20,14 @@ class _SignUpPageState extends State<SignUpPage> {
   final confirmPasswordController = TextEditingController();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
@@ -55,18 +63,18 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.075,
                           ),
-                          CustomTextField(
+                          CustomTextField.primary(
                             textController: emailController,
                             hintText: 'Email',
                             icon: const Icon(Icons.email_outlined),
                           ),
-                          CustomTextField(
+                          CustomTextField.primary(
                             textController: passwordController,
                             hintText: 'Password',
                             icon: const Icon(Icons.password_outlined),
                             obscureText: true,
                           ),
-                          CustomTextField(
+                          CustomTextField.primary(
                             textController: confirmPasswordController,
                             hintText: 'Confirm password',
                             icon: const Icon(Icons.password_outlined),

@@ -19,6 +19,13 @@ class _SignInPageState extends State<SignInPage> {
   final passwordController = TextEditingController();
 
   @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     final h = MediaQuery.of(context).size.height;
@@ -54,12 +61,12 @@ class _SignInPageState extends State<SignInPage> {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.075,
                           ),
-                          CustomTextField(
+                          CustomTextField.primary(
                             textController: emailController,
                             hintText: 'Email',
                             icon: const Icon(Icons.email_outlined),
                           ),
-                          CustomTextField(
+                          CustomTextField.primary(
                             textController: passwordController,
                             hintText: 'Password',
                             icon: const Icon(Icons.password_outlined),

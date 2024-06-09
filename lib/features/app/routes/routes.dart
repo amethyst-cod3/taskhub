@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taskhub/features/home/add_task_page.dart';
+import 'package:taskhub/features/home/edit_task_page.dart';
 import 'package:taskhub/features/home/home_page.dart';
 import 'package:taskhub/features/onboard/sign_in_page.dart';
 import 'package:taskhub/features/onboard/sign_up_page.dart';
 import 'package:taskhub/features/onboard/welcome_page.dart';
+import 'package:taskhub/features/profile/profile_page.dart';
 import 'package:taskhub/features/wrapper.dart';
+import 'package:taskhub/models/task_model.dart';
 
 /// App navigation routes system
 
@@ -38,7 +42,26 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/homePage',
       builder: (context, state) {
-        return HomePage();
+        return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: '/addTaskPage',
+      builder: (context, state) {
+        return const AddTaskPage();
+      },
+    ),
+    GoRoute(
+      path: '/editTaskPage/:id',
+      builder: (context, state) {
+        final task = state.extra as Task;
+        return EditTaskPage(task: task);
+      },
+    ),
+    GoRoute(
+      path: '/profilePage',
+      builder: (context, state) {
+        return ProfilePage();
       },
     ),
   ],

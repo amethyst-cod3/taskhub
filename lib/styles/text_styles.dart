@@ -24,11 +24,23 @@ class CustomTextStyle {
   static const menuTitle = TextStyle(
     color: CustomColor.lightwhite,
     fontSize: 20,
-    fontWeight: FontWeight.w200,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
+  static const menuSecondaryTitle = TextStyle(
+    color: CustomColor.darkblue,
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
     fontFamily: 'Kanit',
   );
   static const taskTileTitle = TextStyle(
     color: CustomColor.darkblue,
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    fontFamily: 'Kanit',
+  );
+  static const completedTaskTileTitle = TextStyle(
+    color: CustomColor.lightwhite,
     fontSize: 20,
     fontWeight: FontWeight.w700,
     fontFamily: 'Kanit',
@@ -61,6 +73,12 @@ class CustomTextStyle {
   );
   static const taskTileDescription = TextStyle(
     color: CustomColor.darkblue,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
+  static const completedTaskTileDescription = TextStyle(
+    color: CustomColor.lightwhite,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     fontFamily: 'Kanit',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taskhub/styles/colors.dart';
+import 'package:taskhub/styles/text_styles.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
@@ -8,29 +9,76 @@ class CustomTextField extends StatelessWidget {
     this.hintText,
     this.icon,
     this.obscureText,
+    this.minLines,
+    this.maxLines,
+    this.expands,
+    required this.isPrimary,
+    required this.isTaskField,
   });
 
   final TextEditingController textController;
   final String? hintText;
   final Icon? icon;
   final bool? obscureText;
+  final int? minLines;
+  final int? maxLines;
+  final bool? expands;
+  final bool isPrimary;
+  final bool isTaskField;
+
+  factory CustomTextField.primary({
+    required TextEditingController textController,
+    String? hintText,
+    Icon? icon,
+    bool? obscureText,
+    int? maxLines,
+    bool? expands,
+    bool? isTaskField,
+  }) =>
+      CustomTextField(
+        textController: textController,
+        hintText: hintText,
+        icon: icon,
+        obscureText: obscureText,
+        maxLines: 1,
+        expands: false,
+        isPrimary: true,
+        isTaskField: false,
+      );
+
+  factory CustomTextField.secondary({
+    required TextEditingController textController,
+    String? hintText,
+    int? minLines,
+    int? maxLines,
+    bool? expands,
+    bool? isTaskField,
+  }) =>
+      CustomTextField(
+        textController: textController,
+        hintText: hintText,
+        minLines: minLines,
+        maxLines: maxLines,
+        expands: true,
+        isPrimary: false,
+        isTaskField: false,
+      );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      width: MediaQuery.of(context).size.width * 0.8,
-      height: 48,
+      width: isTaskField
+          ? MediaQuery.of(context).size.width * 0.8
+          : MediaQuery.of(context).size.width,
+      height: isPrimary ? 48 : 96,
       decoration: BoxDecoration(
         color: CustomColor.lightwhite,
         borderRadius: BorderRadius.circular(12),
       ),
       child: TextField(
         controller: textController,
-        style: const TextStyle(
-          color: CustomColor.darkblue,
-          fontSize: 16,
-        ),
+        style: CustomTextStyle.primaryTextRegular,
         decoration: InputDecoration(
           hintText: hintText,
           contentPadding: const EdgeInsets.all(8),
@@ -52,6 +100,9 @@ class CustomTextField extends StatelessWidget {
           ),
         ),
         obscureText: obscureText ?? false,
+        minLines: minLines,
+        maxLines: maxLines,
+        expands: expands ?? false,
       ),
     );
   }
