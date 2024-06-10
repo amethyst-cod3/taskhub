@@ -89,6 +89,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
                           CustomTextField.primary(
                             textController: titleController,
                             isTaskField: true,
+                            readOnly: false,
                           ),
                           CustomTextField.secondary(
                             textController: descriptionController,

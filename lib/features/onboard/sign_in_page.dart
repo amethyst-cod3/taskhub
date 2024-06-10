@@ -66,6 +66,7 @@ class _SignInPageState extends State<SignInPage> {
                             hintText: 'Email',
                             icon: const Icon(Icons.email_outlined),
                             isTaskField: false,
+                            readOnly: false,
                           ),
                           CustomTextField.primary(
                             textController: passwordController,
@@ -73,6 +74,7 @@ class _SignInPageState extends State<SignInPage> {
                             icon: const Icon(Icons.password_outlined),
                             obscureText: true,
                             isTaskField: false,
+                            readOnly: false,
                           ),
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.075,

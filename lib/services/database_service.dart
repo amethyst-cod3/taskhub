@@ -15,6 +15,12 @@ class DatabaseService {
     });
   }
 
+  Future<void> updateUsername(String uid, String username) async {
+    await FirebaseFirestore.instance.collection('users').doc(uid).update({
+      'username': username,
+    });
+  }
+
   /// --------------------
 
   /// TASKS

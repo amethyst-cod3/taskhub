@@ -15,6 +15,8 @@ class CustomTextField extends StatelessWidget {
     this.expands,
     required this.isPrimary,
     this.isTaskField,
+    this.width,
+    this.readOnly,
   });
 
   final TextEditingController textController;
@@ -27,6 +29,8 @@ class CustomTextField extends StatelessWidget {
   final bool? expands;
   final bool isPrimary;
   final bool? isTaskField;
+  final double? width;
+  final bool? readOnly;
 
   factory CustomTextField.primary({
     required TextEditingController textController,
@@ -37,6 +41,8 @@ class CustomTextField extends StatelessWidget {
     int? maxLines,
     bool? expands,
     bool? isTaskField,
+    double? width,
+    bool? readOnly,
   }) =>
       CustomTextField(
         textController: textController,
@@ -48,6 +54,8 @@ class CustomTextField extends StatelessWidget {
         expands: false,
         isPrimary: true,
         isTaskField: isTaskField,
+        width: width,
+        readOnly: readOnly,
       );
 
   factory CustomTextField.secondary({
@@ -57,6 +65,7 @@ class CustomTextField extends StatelessWidget {
     int? maxLines,
     bool? expands,
     bool? isTaskField,
+    bool? readOnly,
   }) =>
       CustomTextField(
         textController: textController,
@@ -66,15 +75,14 @@ class CustomTextField extends StatelessWidget {
         expands: true,
         isPrimary: false,
         isTaskField: isTaskField,
+        readOnly: false,
       );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(8),
-      width: isTaskField!
-          ? MediaQuery.of(context).size.width
-          : MediaQuery.of(context).size.width * 0.8,
+      width: isTaskField! ? width : MediaQuery.of(context).size.width * 0.8,
       height: isPrimary ? 48 : 144,
       child: TextField(
         controller: textController,
@@ -95,10 +103,11 @@ class CustomTextField extends StatelessWidget {
               width: 2.5,
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(12)),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
             borderSide: BorderSide(
-              color: CustomColor.lightblue,
+              color:
+                  readOnly! ? CustomColor.customwhite : CustomColor.lightblue,
               width: 2.5,
             ),
           ),
@@ -107,6 +116,7 @@ class CustomTextField extends StatelessWidget {
         minLines: minLines,
         maxLines: maxLines,
         expands: expands ?? false,
+        readOnly: readOnly ?? false,
       ),
     );
   }

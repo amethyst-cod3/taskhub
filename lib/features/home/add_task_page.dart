@@ -76,6 +76,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                             textController: titleController,
                             hintText: 'Title...',
                             isTaskField: true,
+                            readOnly: false,
                           ),
                           CustomTextField.secondary(
                             textController: descriptionController,

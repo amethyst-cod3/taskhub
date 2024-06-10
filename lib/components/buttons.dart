@@ -12,6 +12,7 @@ class CustomButton extends StatelessWidget {
     this.borderRadius,
     required this.onTap,
     required this.pressed,
+    this.width,
   });
 
   final String text;
@@ -21,12 +22,14 @@ class CustomButton extends StatelessWidget {
   final double? borderRadius;
   final VoidCallback onTap;
   final bool pressed;
+  final double? width;
 
   factory CustomButton.primary({
     required String text,
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
+    double? width,
   }) =>
       CustomButton(
         text: text,
@@ -36,6 +39,7 @@ class CustomButton extends StatelessWidget {
         borderRadius: 12,
         onTap: onTap,
         pressed: pressed,
+        width: width,
       );
 
   factory CustomButton.secondary({
@@ -43,6 +47,7 @@ class CustomButton extends StatelessWidget {
     Color? color,
     required VoidCallback onTap,
     bool pressed = false,
+    double? width,
   }) =>
       CustomButton(
         text: text,
@@ -53,6 +58,7 @@ class CustomButton extends StatelessWidget {
         borderRadius: 12,
         onTap: onTap,
         pressed: pressed,
+        width: width,
       );
 
   @override
@@ -63,7 +69,7 @@ class CustomButton extends StatelessWidget {
         style: ButtonStyle(
           fixedSize: WidgetStateProperty.all(
             Size(
-              MediaQuery.of(context).size.width * 0.8,
+              width ?? MediaQuery.of(context).size.width * 0.8,
               48,
             ),
           ),

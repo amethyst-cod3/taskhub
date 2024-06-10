@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -9,6 +10,8 @@ class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseService _databaseService = DatabaseService();
 
+  User? get currentUser => _auth.currentUser;
+
   /// Create an User (UserModel) object based on a User (FirebaseUser old nomenclature)
   UserModel? _userFromFirebase(User? user) {
     return user != null ? UserModel(uid: user.uid) : null;
@@ -17,6 +20,18 @@ class AuthService {
   /// Auth change user stream
   Stream<UserModel?> get user {
     return _auth.authStateChanges().map(_userFromFirebase);
+  }
+
+  /// Get user info
+  Future<Map<String, dynamic>?> getUserInfo(String uid) async {
+    try {
+      DocumentSnapshot doc =
+          await FirebaseFirestore.instance.collection('users').doc(uid).get();
+      return doc.data() as Map<String, dynamic>?;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 
   /// USER CREDENTIALS PROVIDERS
