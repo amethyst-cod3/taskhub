@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:taskhub/models/task_model.dart';
 import 'package:taskhub/styles/colors.dart';
 import 'package:taskhub/styles/text_styles.dart';
@@ -28,6 +29,17 @@ class _TaskTileState extends State<TaskTile> {
   void initState() {
     super.initState();
     _isCompleted = widget.task.isCompleted;
+  }
+
+  @override
+  void didUpdateWidget(TaskTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Actualiza _isCompleted cuando cambia widget.task.isCompleted
+    if (_isCompleted != widget.task.isCompleted) {
+      setState(() {
+        _isCompleted = widget.task.isCompleted;
+      });
+    }
   }
 
   @override
@@ -68,12 +80,11 @@ class _TaskTileState extends State<TaskTile> {
                   activeColor: CustomColor.lightblue,
                   checkColor: CustomColor.customwhite,
                   value: _isCompleted,
-                  onChanged: (newValue) async {
-                    setState(() {
-                      _isCompleted = newValue!;
-                    });
-                    widget.onCheckboxChanged(_isCompleted);
-                  },
+                  onChanged: _isCompleted
+                      ? null
+                      : (newValue) async {
+                          await _showConfirmationDialog(newValue!);
+                        },
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -89,6 +100,8 @@ class _TaskTileState extends State<TaskTile> {
                       const SizedBox(height: 8),
                       Text(
                         widget.task.description,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                         style: _isCompleted
                             ? CustomTextStyle.completedTaskTileDescription
                             : CustomTextStyle.taskTileDescription,
@@ -96,11 +109,63 @@ class _TaskTileState extends State<TaskTile> {
                     ],
                   ),
                 ),
+                const SizedBox(width: 16),
+                Text(
+                  DateFormat('dd MMM').format(widget.task.creationDate),
+                  style: _isCompleted
+                      ? CustomTextStyle.completedTaskTileCreated
+                      : CustomTextStyle.taskTileCreated,
+                ),
               ],
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Future<void> _showConfirmationDialog(bool newValue) async {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          icon: const Icon(Icons.warning_amber),
+          backgroundColor: CustomColor.customwhite,
+          title: const Text(
+            'Complete task',
+            style: CustomTextStyle.taskTileTitle,
+          ),
+          content: const Text(
+            'Are you sure you want to mark this task as completed?',
+            style: CustomTextStyle.taskTileDescription,
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Cancel',
+                style: CustomTextStyle.secondaryButtonRegular,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Confirm',
+                style: CustomTextStyle.tertiaryButtonRegular,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isCompleted = newValue;
+                });
+                widget.onCheckboxChanged(_isCompleted);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

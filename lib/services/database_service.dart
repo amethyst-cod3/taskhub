@@ -36,12 +36,7 @@ class DatabaseService {
   /// Task list from snapshot
   List<Task> _taskListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-      return Task(
-        id: doc.get('id') ?? '',
-        title: doc.get('title') ?? '',
-        description: doc.get('description') ?? '',
-        isCompleted: doc.get('isCompleted') ?? false,
-      );
+      return Task.fromFirestore(doc);
     }).toList();
   }
 
@@ -54,11 +49,14 @@ class DatabaseService {
   // Add task
   Future<void> addTask(String tempId, String title, String? description,
       bool isCompleted) async {
+    final creationDate = DateTime.now();
     DocumentReference documentRef = await taskCollection.add({
       'id': tempId, // Mark the task id as a temporal one
       'title': title,
       'description': description ?? '',
       'isCompleted': isCompleted,
+      'creationDate': Timestamp.fromDate(creationDate),
+      'lastEdited': Timestamp.fromDate(creationDate),
     });
 
     // Obtain a task reference id and save it as the task id
@@ -67,11 +65,17 @@ class DatabaseService {
   }
 
   // Edit task
-  Future<void> editTask(String taskId, String title, String? description,
-      String oldDescription) async {
+  Future<void> editTask(
+    String taskId,
+    String title,
+    String? description,
+    String oldDescription,
+  ) async {
+    final lastEdited = DateTime.now();
     return await taskCollection.doc(taskId).update({
       'title': title,
       'description': description ?? oldDescription,
+      'lastEdited': lastEdited,
     });
   }
 

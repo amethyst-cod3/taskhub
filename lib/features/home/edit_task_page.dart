@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:taskhub/components/buttons.dart';
 import 'package:taskhub/components/textfields.dart';
@@ -97,6 +98,19 @@ class _EditTaskPageState extends State<EditTaskPage> {
                             maxLines: null,
                             expands: true,
                             isTaskField: true,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'Last edited:\n${DateFormat('dd MMM - HH:mm').format(widget.task.lastEdited)}',
+                                  style: CustomTextStyle.taskTileCreated,
+                                  textAlign: TextAlign.end,
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

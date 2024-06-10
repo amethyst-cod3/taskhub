@@ -42,7 +42,7 @@ class HomePage extends StatelessWidget {
                                 width: 18,
                               ),
                               Text(
-                                'Home',
+                                'My tasks',
                                 style: CustomTextStyle.menuTitle,
                               ),
                             ],

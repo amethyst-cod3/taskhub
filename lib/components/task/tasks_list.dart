@@ -5,6 +5,7 @@ import 'package:taskhub/components/task/task_tile.dart';
 import 'package:taskhub/models/task_model.dart';
 import 'package:taskhub/models/user_model.dart';
 import 'package:taskhub/services/database_service.dart';
+import 'package:taskhub/styles/colors.dart';
 import 'package:taskhub/styles/text_styles.dart';
 
 class TasksList extends StatefulWidget {
@@ -41,11 +42,53 @@ class _TasksListState extends State<TasksList> {
                       await DatabaseService(uid: user!.uid)
                           .updateTaskStatus(tasks[index].id, newValue),
                   onSlidablePressed: () async =>
-                      await DatabaseService(uid: user!.uid)
-                          .deleteTask(tasks[index].id),
+                      await _showDeleteConfirmationDialog(tasks[index]),
                 );
               },
             ),
           );
+  }
+
+  Future<void> _showDeleteConfirmationDialog(Task task) async {
+    final user = Provider.of<UserModel?>(context, listen: false);
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          icon: const Icon(Icons.delete_outline),
+          backgroundColor: CustomColor.customwhite,
+          title: const Text(
+            'Delete task',
+            style: CustomTextStyle.taskTileTitle,
+          ),
+          content: const Text(
+            'Are you sure you want to delete this task?',
+            style: CustomTextStyle.taskTileDescription,
+            textAlign: TextAlign.center,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Cancel',
+                style: CustomTextStyle.secondaryButtonRegular,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Confirm',
+                style: CustomTextStyle.tertiaryButtonRegularAlternative,
+              ),
+              onPressed: () async {
+                await DatabaseService(uid: user!.uid).deleteTask(task.id);
+                if (context.mounted) Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -44,6 +44,8 @@ class CustomTextStyle {
     fontSize: 20,
     fontWeight: FontWeight.w700,
     fontFamily: 'Kanit',
+    decoration: TextDecoration.lineThrough,
+    decorationColor: CustomColor.customwhite,
   );
 
   /// Texts
@@ -83,6 +85,18 @@ class CustomTextStyle {
     fontWeight: FontWeight.w400,
     fontFamily: 'Kanit',
   );
+  static const taskTileCreated = TextStyle(
+    color: CustomColor.darkblue,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
+  static const completedTaskTileCreated = TextStyle(
+    color: CustomColor.lightwhite,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
 
   /// Buttons
   static const primaryButtonRegular = TextStyle(
@@ -93,6 +107,18 @@ class CustomTextStyle {
   );
   static const secondaryButtonRegular = TextStyle(
     color: CustomColor.darkblue,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
+  static const tertiaryButtonRegular = TextStyle(
+    color: CustomColor.lightblue,
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Kanit',
+  );
+  static const tertiaryButtonRegularAlternative = TextStyle(
+    color: CustomColor.purple,
     fontSize: 16,
     fontWeight: FontWeight.w400,
     fontFamily: 'Kanit',
