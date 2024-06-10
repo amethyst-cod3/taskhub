@@ -12,6 +12,7 @@ class DatabaseService {
       'uid': uid,
       'username': 'New user',
       'email': email,
+      'avatar': 'default',
     });
   }
 

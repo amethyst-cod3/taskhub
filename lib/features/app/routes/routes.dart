@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:taskhub/features/home/add_task_page.dart';
 import 'package:taskhub/features/home/edit_task_page.dart';
 import 'package:taskhub/features/home/home_page.dart';
+import 'package:taskhub/features/home/side_menu_page.dart';
 import 'package:taskhub/features/onboard/sign_in_page.dart';
 import 'package:taskhub/features/onboard/sign_up_page.dart';
 import 'package:taskhub/features/onboard/welcome_page.dart';
@@ -56,6 +57,12 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) {
         final task = state.extra as Task;
         return EditTaskPage(task: task);
+      },
+    ),
+    GoRoute(
+      path: '/sideMenuPage',
+      builder: (context, state) {
+        return const SideMenuPage();
       },
     ),
     GoRoute(

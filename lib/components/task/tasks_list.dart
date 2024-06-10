@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
-import 'package:taskhub/features/home/task_tile.dart';
+import 'package:taskhub/components/task/task_tile.dart';
 import 'package:taskhub/models/task_model.dart';
 import 'package:taskhub/models/user_model.dart';
 import 'package:taskhub/services/database_service.dart';
@@ -21,10 +21,13 @@ class _TasksListState extends State<TasksList> {
     final tasks = Provider.of<List<Task>>(context);
     return tasks.isEmpty
         ? const Center(
-            child: Text(
-              'No tasks available.\n\nYou can add a task pressing the + button in the bottom right corner.',
-              style: CustomTextStyle.primaryTextRegular,
-              textAlign: TextAlign.center,
+            child: Padding(
+              padding: EdgeInsets.all(24),
+              child: Text(
+                'No tasks available.\n\nYou can add a task pressing the + button in the bottom right corner.',
+                style: CustomTextStyle.primaryTextRegular,
+                textAlign: TextAlign.center,
+              ),
             ),
           )
         : SlidableAutoCloseBehavior(

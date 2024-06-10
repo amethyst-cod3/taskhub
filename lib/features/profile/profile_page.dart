@@ -16,6 +16,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final AuthService _authService = AuthService();
+  String avatar = '';
   late TextEditingController usernameController;
   late TextEditingController emailController;
   late String uid;
@@ -78,7 +79,20 @@ class _ProfilePageState extends State<ProfilePage> {
                   child: Column(
                     children: [
                       Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
+                          Container(
+                            margin: const EdgeInsets.all(12),
+                            width: 100,
+                            height: 100,
+                            decoration: BoxDecoration(
+                                color: CustomColor.customwhite,
+                                image: DecorationImage(
+                                    fit: BoxFit.scaleDown,
+                                    image:
+                                        AssetImage('assets/user/$avatar.png')),
+                                borderRadius: BorderRadius.circular(24)),
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -139,6 +153,7 @@ class _ProfilePageState extends State<ProfilePage> {
       final userInfo = await _authService.getUserInfo(user.uid);
       if (userInfo != null) {
         setState(() {
+          avatar = userInfo['avatar'];
           usernameController.text = userInfo['username'];
           emailController.text = userInfo['email'];
         });

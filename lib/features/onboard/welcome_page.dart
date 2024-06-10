@@ -33,7 +33,7 @@ class WelcomePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(24),
                     child: const Text(
-                      'Your task management app.\n\nShare them with your friends and co-operate together.',
+                      'Your task management app.', //\n\nShare them with your friends and co-operate together.',
                       style: CustomTextStyle.welcomePageSubtitle,
                     ),
                   ),

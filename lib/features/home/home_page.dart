@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-import 'package:taskhub/features/home/tasks_list.dart';
+import 'package:taskhub/components/task/tasks_list.dart';
 import 'package:taskhub/models/task_model.dart';
 import 'package:taskhub/models/user_model.dart';
 import 'package:taskhub/services/database_service.dart';
@@ -49,10 +49,14 @@ class HomePage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              IconButton(
-                                icon: const Icon(Icons.person),
-                                color: CustomColor.lightwhite,
-                                onPressed: () => context.push('/profilePage'),
+                              Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: IconButton(
+                                  icon: const Icon(Icons.menu),
+                                  color: CustomColor.lightwhite,
+                                  onPressed: () =>
+                                      context.push('/sideMenuPage'),
+                                ),
                               ),
                             ],
                           ),
