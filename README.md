@@ -2,6 +2,11 @@
 
 A cooperative multi-task management app.
 
+# Links
+
+Documentación https://docs.google.com/document/d/12BoKhjD6uwtBFMHiX54fpckVeDFqmaiv/edit?usp=sharing&ouid=114806446564274657705&rtpof=true&sd=true
+App https://drive.google.com/file/d/1m1Y0xDWQxdhP1T-MWbrBFbyGyGfIlx4_/view?usp=sharing
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
