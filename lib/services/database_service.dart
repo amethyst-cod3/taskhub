@@ -51,12 +51,12 @@ class DatabaseService {
 
   /// TASK FUNCTIONS
   // Add task
-  Future<void> addTask(
-      String tempId, String title, String description, bool isCompleted) async {
+  Future<void> addTask(String tempId, String title, String? description,
+      bool isCompleted) async {
     DocumentReference documentRef = await taskCollection.add({
       'id': tempId, // Mark the task id as a temporal one
       'title': title,
-      'description': description,
+      'description': description ?? '',
       'isCompleted': isCompleted,
     });
 
@@ -66,10 +66,11 @@ class DatabaseService {
   }
 
   // Edit task
-  Future<void> editTask(String taskId, String title, String description) async {
+  Future<void> editTask(String taskId, String title, String? description,
+      String oldDescription) async {
     return await taskCollection.doc(taskId).update({
       'title': title,
-      'description': description,
+      'description': description ?? oldDescription,
     });
   }
 

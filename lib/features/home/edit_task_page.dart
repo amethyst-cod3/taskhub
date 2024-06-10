@@ -108,23 +108,18 @@ class _EditTaskPageState extends State<EditTaskPage> {
                           color: CustomColor.blue,
                           onTap: () async {
                             if (titleController.text.isNotEmpty) {
-                              if (descriptionController.text.isNotEmpty) {
-                                if (titleController.text != widget.task.title ||
-                                    descriptionController.text !=
-                                        widget.task.description) {
-                                  await DatabaseService(uid: user!.uid)
-                                      .editTask(
-                                    widget.task.id,
-                                    titleController.text.trim(),
-                                    descriptionController.text.trim(),
-                                  );
-                                  if (context.mounted) context.pop();
-                                } else {
-                                  if (context.mounted) context.pop();
-                                }
+                              if (titleController.text != widget.task.title ||
+                                  descriptionController.text !=
+                                      widget.task.description) {
+                                await DatabaseService(uid: user!.uid).editTask(
+                                  widget.task.id,
+                                  titleController.text.trim(),
+                                  descriptionController.text.trim(),
+                                  widget.task.description,
+                                );
+                                if (context.mounted) context.pop();
                               } else {
-                                _showErrorSnackBar(
-                                    context, 'Description is empty.');
+                                if (context.mounted) context.pop();
                               }
                             } else {
                               _showErrorSnackBar(context, 'Title is empty.');

@@ -80,7 +80,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           ),
                           CustomTextField.secondary(
                             textController: descriptionController,
-                            hintText: 'Description...',
+                            hintText: 'Description...[Optional]',
                             minLines: null,
                             maxLines: null,
                             expands: true,
@@ -96,17 +96,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
                           color: CustomColor.blue,
                           onTap: () async {
                             if (titleController.text.isNotEmpty) {
-                              if (descriptionController.text.isNotEmpty) {
-                                await DatabaseService(uid: user!.uid).addTask(
-                                    'newtask',
-                                    titleController.text.trim(),
-                                    descriptionController.text.trim(),
-                                    false);
-                                if (context.mounted) context.pop();
-                              } else {
-                                _showErrorSnackBar(
-                                    context, 'Description is empty.');
-                              }
+                              await DatabaseService(uid: user!.uid).addTask(
+                                  'newtask',
+                                  titleController.text.trim(),
+                                  descriptionController.text.trim(),
+                                  false);
+                              if (context.mounted) context.pop();
                             } else {
                               _showErrorSnackBar(context, 'Title is empty.');
                             }
