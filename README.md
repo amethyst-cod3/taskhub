@@ -4,9 +4,9 @@ A cooperative multi-task management app.
 
 # Links
 
-Doc https://drive.google.com/file/d/14FHggPA_zsSzp6EykXME462GeGIZe52W/view?usp=sharing
+[Doc](https://drive.google.com/file/d/1ZTCD52x5Z9a8JW77Dnsy9P--9OIZv3Lf/view?usp=sharing)
 
-App https://drive.google.com/file/d/1m1Y0xDWQxdhP1T-MWbrBFbyGyGfIlx4_/view?usp=sharing
+[App](https://drive.google.com/file/d/1m1Y0xDWQxdhP1T-MWbrBFbyGyGfIlx4_/view?usp=sharing)
 
 ## Getting Started
 
