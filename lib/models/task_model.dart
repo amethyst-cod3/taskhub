@@ -8,6 +8,7 @@ class Task {
     required this.isCompleted,
     required this.creationDate,
     required this.lastEdited,
+    required this.sharedWith,
   });
 
   final String id;
@@ -16,6 +17,7 @@ class Task {
   final bool isCompleted;
   final DateTime creationDate;
   final DateTime lastEdited;
+  final List<String> sharedWith;
 
   // Create a factory constructor to parse from a Firestore document
   factory Task.fromFirestore(DocumentSnapshot doc) {
@@ -27,6 +29,7 @@ class Task {
       isCompleted: data['isCompleted'] ?? false,
       creationDate: (data['creationDate'] as Timestamp).toDate(),
       lastEdited: (data['lastEdited'] as Timestamp).toDate(),
+      sharedWith: List<String>.from(data['sharedWith'] ?? []),
     );
   }
 
@@ -39,6 +42,7 @@ class Task {
       'isCompleted': isCompleted,
       'creationDate': Timestamp.fromDate(creationDate),
       'lastEdited': Timestamp.fromDate(lastEdited),
+      'sharedWith': sharedWith,
     };
   }
 }

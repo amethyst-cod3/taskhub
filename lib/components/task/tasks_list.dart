@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 import 'package:taskhub/components/task/task_tile.dart';
+import 'package:taskhub/components/textfields.dart';
 import 'package:taskhub/models/task_model.dart';
 import 'package:taskhub/models/user_model.dart';
 import 'package:taskhub/services/database_service.dart';
@@ -16,10 +17,19 @@ class TasksList extends StatefulWidget {
 }
 
 class _TasksListState extends State<TasksList> {
+  final TextEditingController shareController = TextEditingController();
+
+  @override
+  void dispose() {
+    shareController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserModel?>(context);
     final tasks = Provider.of<List<Task>>(context);
+
     return tasks.isEmpty
         ? const Center(
             child: Padding(
@@ -41,12 +51,61 @@ class _TasksListState extends State<TasksList> {
                   onCheckboxChanged: (newValue) async =>
                       await DatabaseService(uid: user!.uid)
                           .updateTaskStatus(tasks[index].id, newValue),
-                  onSlidablePressed: () async =>
+                  onSharePressed: () async =>
+                      await _showShareConfirmationDialog(tasks[index]),
+                  onDeletePressed: () async =>
                       await _showDeleteConfirmationDialog(tasks[index]),
                 );
               },
             ),
           );
+  }
+
+  Future<void> _showShareConfirmationDialog(Task task) async {
+    final user = Provider.of<UserModel?>(context, listen: false);
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          icon: const Icon(Icons.share_outlined),
+          backgroundColor: CustomColor.customwhite,
+          title: const Text(
+            'Share task',
+            style: CustomTextStyle.taskTileTitle,
+          ),
+          content: CustomTextField.primary(
+            textController: shareController,
+            hintText: 'User email...',
+            isTaskField: true,
+            readOnly: false,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text(
+                'Cancel',
+                style: CustomTextStyle.secondaryButtonRegular,
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text(
+                'Confirm',
+                style: CustomTextStyle.tertiaryButtonRegular,
+              ),
+              onPressed: () async {
+                await DatabaseService(uid: user!.uid).shareTaskWithUser(
+                    task.id,
+                    await DatabaseService(uid: user.uid)
+                        .getUserIdByEmail(shareController.text.trim()));
+                if (context.mounted) Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> _showDeleteConfirmationDialog(Task task) async {

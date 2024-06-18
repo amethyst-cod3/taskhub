@@ -11,12 +11,14 @@ class TaskTile extends StatefulWidget {
     super.key,
     required this.task,
     required this.onCheckboxChanged,
-    required this.onSlidablePressed,
+    required this.onSharePressed,
+    required this.onDeletePressed,
   });
 
   final Task task;
   final Function(bool) onCheckboxChanged;
-  final Function() onSlidablePressed;
+  final Function() onSharePressed;
+  final Function() onDeletePressed;
 
   @override
   State<StatefulWidget> createState() => _TaskTileState();
@@ -34,7 +36,6 @@ class _TaskTileState extends State<TaskTile> {
   @override
   void didUpdateWidget(TaskTile oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // Actualiza _isCompleted cuando cambia widget.task.isCompleted
     if (_isCompleted != widget.task.isCompleted) {
       setState(() {
         _isCompleted = widget.task.isCompleted;
@@ -52,10 +53,23 @@ class _TaskTileState extends State<TaskTile> {
           children: [
             SlidableAction(
               backgroundColor: CustomColor.lightwhite,
+              foregroundColor: CustomColor.blue,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(12),
+                bottomLeft: Radius.circular(12),
+              ),
+              icon: Icons.share,
+              onPressed: (context) async => widget.onSharePressed(),
+            ),
+            SlidableAction(
+              backgroundColor: CustomColor.lightwhite,
               foregroundColor: CustomColor.purple,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(12),
+                bottomRight: Radius.circular(12),
+              ),
               icon: Icons.delete_sweep,
-              onPressed: (context) async => widget.onSlidablePressed(),
+              onPressed: (context) async => widget.onDeletePressed(),
             ),
           ],
         ),

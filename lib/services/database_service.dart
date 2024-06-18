@@ -22,6 +22,15 @@ class DatabaseService {
     });
   }
 
+  Future getUserIdByEmail(String email) async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
+        .collection('users')
+        .where('email', isEqualTo: email)
+        .get();
+    if (result.docs.isEmpty) return null;
+    return result.docs.first['uid'];
+  }
+
   /// --------------------
 
   /// TASKS
@@ -45,23 +54,32 @@ class DatabaseService {
     return taskCollection.snapshots().map(_taskListFromSnapshot);
   }
 
+  // Stream<List<Task>> get sharedTasks {
+  //   return FirebaseFirestore.instance
+  //       .collectionGroup('tasks')
+  //       .where('sharedWith', arrayContains: uid)
+  //       .snapshots()
+  //       .map(_taskListFromSnapshot);
+  // }
+
   /// TASK FUNCTIONS
   // Add task
-  Future<void> addTask(String tempId, String title, String? description,
+  Future<void> addTask(/*String tempId,*/ String title, String? description,
       bool isCompleted) async {
     final creationDate = DateTime.now();
     DocumentReference documentRef = await taskCollection.add({
-      'id': tempId, // Mark the task id as a temporal one
+      //'taskId': tempId, // Mark the task id as a temporal one
       'title': title,
       'description': description ?? '',
       'isCompleted': isCompleted,
       'creationDate': Timestamp.fromDate(creationDate),
       'lastEdited': Timestamp.fromDate(creationDate),
+      'sharedWith': [uid],
     });
 
     // Obtain a task reference id and save it as the task id
     String taskId = documentRef.id;
-    await documentRef.update({'id': taskId});
+    await documentRef.update({'taskId': taskId});
   }
 
   // Edit task
@@ -72,11 +90,26 @@ class DatabaseService {
     String oldDescription,
   ) async {
     final lastEdited = DateTime.now();
-    return await taskCollection.doc(taskId).update({
+    await taskCollection.doc(taskId).update({
       'title': title,
       'description': description ?? oldDescription,
       'lastEdited': lastEdited,
     });
+
+    QuerySnapshot sharedTasks = await FirebaseFirestore.instance
+        .collectionGroup('tasks')
+        .where('taskId', isEqualTo: taskId)
+        .get();
+
+    for (DocumentSnapshot doc in sharedTasks.docs) {
+      //if (doc.id != taskId) {
+      await doc.reference.update({
+        'title': title,
+        'description': description ?? oldDescription,
+        'lastEdited': lastEdited,
+      });
+      //}
+    }
   }
 
   // Update a task status
@@ -89,6 +122,25 @@ class DatabaseService {
   // Delete task
   Future<void> deleteTask(String taskId) async {
     return await taskCollection.doc(taskId).delete();
+  }
+
+  // Share task with another user
+  Future<void> shareTaskWithUser(String taskId, String newUserId) async {
+    DocumentReference taskRef = taskCollection.doc(taskId);
+
+    await taskRef.update({
+      'sharedWith': FieldValue.arrayUnion([newUserId])
+    });
+
+    DocumentSnapshot taskSnapshot = await taskRef.get();
+    Map<String, dynamic> taskData = taskSnapshot.data() as Map<String, dynamic>;
+
+    CollectionReference newUserTaskCollection = FirebaseFirestore.instance
+        .collection('users')
+        .doc(newUserId)
+        .collection('tasks');
+
+    await newUserTaskCollection.doc(taskId).set(taskData);
   }
 
   /// --------------------
