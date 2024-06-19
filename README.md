@@ -6,7 +6,7 @@ A cooperative multi-task management app.
 
 [Doc](https://drive.google.com/file/d/1ZTCD52x5Z9a8JW77Dnsy9P--9OIZv3Lf/view?usp=sharing)
 
-[App](https://drive.google.com/file/d/1m1Y0xDWQxdhP1T-MWbrBFbyGyGfIlx4_/view?usp=sharing)
+[App](https://drive.google.com/file/d/1h0VHa3hvfN0WIqgxdtnEcFt-6e4PfPs0/view?usp=sharing)
 
 ## Getting Started
 
