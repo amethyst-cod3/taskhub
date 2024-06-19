@@ -86,12 +86,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
-                                color: CustomColor.customwhite,
-                                image: DecorationImage(
-                                    fit: BoxFit.scaleDown,
-                                    image:
-                                        AssetImage('assets/user/$avatar.png')),
-                                borderRadius: BorderRadius.circular(24)),
+                              color: CustomColor.customwhite,
+                              image: DecorationImage(
+                                fit: BoxFit.scaleDown,
+                                image: AssetImage('assets/user/$avatar.png'),
+                              ),
+                              borderRadius: BorderRadius.circular(24),
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -123,6 +124,13 @@ class _ProfilePageState extends State<ProfilePage> {
                             width: MediaQuery.of(context).size.width * 0.8,
                             readOnly: true,
                           ),
+                          CustomButton.secondary(
+                            text: 'Reset password',
+                            onTap: () async {
+                              await _authService.resetPassword(
+                                  context, emailController.text.trim());
+                            },
+                          )
                         ],
                       ),
                       const Expanded(child: SizedBox()),

@@ -39,6 +39,14 @@ class _SignInPageState extends State<SignInPage> {
             height: h,
             child: Stack(
               children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.fitWidth,
+                      image: AssetImage('assets/onboarding/onboarding_bg.png'),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(8),
                   child: IconButton(

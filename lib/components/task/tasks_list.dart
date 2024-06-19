@@ -68,7 +68,7 @@ class _TasksListState extends State<TasksList> {
       builder: (BuildContext context) {
         return AlertDialog(
           icon: const Icon(Icons.share_outlined),
-          backgroundColor: CustomColor.customwhite,
+          backgroundColor: CustomColor.lightwhite,
           title: const Text(
             'Share task',
             style: CustomTextStyle.taskTileTitle,

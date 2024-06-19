@@ -19,6 +19,14 @@ class WelcomePage extends StatelessWidget {
           height: h,
           child: Stack(
             children: [
+              Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.fitWidth,
+                    image: AssetImage('assets/onboarding/onboarding_bg.png'),
+                  ),
+                ),
+              ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +41,7 @@ class WelcomePage extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(24),
                     child: const Text(
-                      'Your task management app.', //\n\nShare them with your friends and co-operate together.',
+                      'Your task management app.\n\nShare them with your friends and co-operate together.',
                       style: CustomTextStyle.welcomePageSubtitle,
                     ),
                   ),

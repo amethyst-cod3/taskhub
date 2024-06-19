@@ -25,6 +25,7 @@ class EditTaskPage extends StatefulWidget {
 class _EditTaskPageState extends State<EditTaskPage> {
   late TextEditingController titleController = TextEditingController();
   late TextEditingController descriptionController = TextEditingController();
+  Map<String, String> userNames = {};
 
   @override
   void initState() {
@@ -32,6 +33,7 @@ class _EditTaskPageState extends State<EditTaskPage> {
     titleController = TextEditingController(text: widget.task.title);
     descriptionController =
         TextEditingController(text: widget.task.description);
+    _loadUserNames();
   }
 
   @override
@@ -102,8 +104,15 @@ class _EditTaskPageState extends State<EditTaskPage> {
                           Padding(
                             padding: const EdgeInsets.all(12),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                widget.task.sharedWith.length > 1
+                                    ? Text(
+                                        'Created by:\n${userNames[widget.task.sharedWith[0]] ?? 'Unknown'}',
+                                        style: CustomTextStyle.taskTileCreated,
+                                        textAlign: TextAlign.start,
+                                      )
+                                    : const Text(''),
                                 Text(
                                   'Last edited:\n${DateFormat('dd MMM - HH:mm').format(widget.task.lastEdited)}',
                                   style: CustomTextStyle.taskTileCreated,
@@ -150,6 +159,16 @@ class _EditTaskPageState extends State<EditTaskPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _loadUserNames() async {
+    DatabaseService databaseService = DatabaseService();
+    for (String uid in widget.task.sharedWith) {
+      UserModel? user = await databaseService.getUsernameByUid(uid);
+      //if (user != null) {
+      userNames[uid] = user?.username ?? uid;
+      //}
+    }
   }
 
   void _showErrorSnackBar(BuildContext context, String message) {

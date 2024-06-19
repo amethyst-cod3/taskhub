@@ -96,6 +96,20 @@ class AuthService {
     }
   }
 
+  /// Reset password
+  Future<void> resetPassword(BuildContext context, String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email.trim());
+      if (context.mounted) {
+        _showSuccessSnackBar(context, 'Password reset email sent.');
+      }
+    } on FirebaseAuthException catch (e) {
+      if (context.mounted) _handleAuthException(context, e);
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   /// Navigate to pages
   void _navigateToHomePage(BuildContext context) {
     context.go('/homePage');
@@ -105,7 +119,7 @@ class AuthService {
     context.go('/welcomePage');
   }
 
-  /// Error ahndling
+  /// Error handling
   void _showErrorSnackBar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -137,5 +151,14 @@ class AuthService {
         message = 'An unknown error occurred. Please try again.';
     }
     _showErrorSnackBar(context, message);
+  }
+
+  void _showSuccessSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: CustomColor.lightblue,
+      ),
+    );
   }
 }

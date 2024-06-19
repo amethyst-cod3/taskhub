@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskhub/models/task_model.dart';
+import 'package:taskhub/models/user_model.dart';
 
 class DatabaseService {
   DatabaseService({this.uid});
@@ -29,6 +30,16 @@ class DatabaseService {
         .get();
     if (result.docs.isEmpty) return null;
     return result.docs.first['uid'];
+  }
+
+  Future<UserModel?> getUsernameByUid(String uid) async {
+    final CollectionReference userCollection =
+        FirebaseFirestore.instance.collection('users');
+    DocumentSnapshot doc = await userCollection.doc(uid).get();
+    if (doc.exists) {
+      return UserModel.fromFirestore(doc);
+    }
+    return null;
   }
 
   /// --------------------
@@ -114,14 +125,38 @@ class DatabaseService {
 
   // Update a task status
   Future<void> updateTaskStatus(String taskId, bool isCompleted) async {
-    return await taskCollection.doc(taskId).update({
+    await taskCollection.doc(taskId).update({
       'isCompleted': isCompleted,
     });
+
+    QuerySnapshot sharedTasks = await FirebaseFirestore.instance
+        .collectionGroup('tasks')
+        .where('taskId', isEqualTo: taskId)
+        .get();
+
+    for (DocumentSnapshot doc in sharedTasks.docs) {
+      //if (doc.id != taskId) {
+      await doc.reference.update({
+        'isCompleted': isCompleted,
+      });
+      //}
+    }
   }
 
   // Delete task
   Future<void> deleteTask(String taskId) async {
-    return await taskCollection.doc(taskId).delete();
+    await taskCollection.doc(taskId).delete();
+
+    QuerySnapshot sharedTasks = await FirebaseFirestore.instance
+        .collectionGroup('tasks')
+        .where('taskId', isEqualTo: taskId)
+        .get();
+
+    for (DocumentSnapshot doc in sharedTasks.docs) {
+      //if (doc.id != taskId) {
+      await doc.reference.delete();
+      //}
+    }
   }
 
   // Share task with another user

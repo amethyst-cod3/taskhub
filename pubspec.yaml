@@ -80,6 +80,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/logo/taskhub_logo.png
+    - assets/onboarding/onboarding_bg.png
     - assets/user/default.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
